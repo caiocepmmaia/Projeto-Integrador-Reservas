@@ -4,11 +4,16 @@
  */
 package pi.reservas;
 
+import controller.CCliente;
+import java.util.Scanner;
+
 /**
  *
  * @author 181810115
  */
 public class PIReservas {
+    public static CCliente cadCarro = new CCliente();
+    static Scanner leia = new Scanner(System.in);
 
     /**
      * @param args the command line arguments
