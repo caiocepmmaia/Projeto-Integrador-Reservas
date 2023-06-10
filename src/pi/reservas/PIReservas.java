@@ -23,7 +23,7 @@ public class PIReservas {
         // TODO code application logic here
     }
     
-    public static int leiaNumInt(){
+    /*public static int leiaNumInt(){
         Scanner leiaNum = new Scanner(System.in);
         try {
             return leaiNum.nextInt();
@@ -41,5 +41,5 @@ public class PIReservas {
         System.out.println("0 - Sair");
         System.out.print("Digite Aqui: ");
         
-    }
+    }*/
 }
