@@ -12,14 +12,15 @@ public class Mesa {
     private int idMesa;
     private String andar;
     private int lugares;
+    private String disponibilidade;
 
     public Mesa() {
     }
 
-    public Mesa(int idMesa, String andar, int lugares) {
+    public Mesa(int idMesa, String andar, int lugares,String disponibilidade) {
         this.idMesa = idMesa;
-        this.andar = andar;
         this.lugares = lugares;
+        this.disponibilidade = disponibilidade;
     }
 
     public int getIdMesa() {
@@ -30,13 +31,6 @@ public class Mesa {
         this.idMesa = idMesa;
     }
 
-    public String getAndar() {
-        return andar;
-    }
-
-    public void setAndar(String andar) {
-        this.andar = andar;
-    }
 
     public int getLugares() {
         return lugares;
@@ -46,9 +40,18 @@ public class Mesa {
         this.lugares = lugares;
     }
 
+    public String getDisponibilidade() {
+        return disponibilidade;
+    }
+
+    public void setDisponibilidade(String disponibilidade) {
+        this.disponibilidade = disponibilidade;
+    }
+    
+
     @Override
     public String toString() {
-        return "        Mesa        \t" + "\nMesa: \t" + idMesa + "\nAndar: \t" + andar + "\nLugares: \t" + lugares + '.';
+        return "        Mesa        \t" + "\nMesa: \t" + idMesa + "\nLugares: \t" + lugares + disponibilidade + "\nDeisponibilidade: \t" + '.';
     }
     
     
