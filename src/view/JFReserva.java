@@ -34,7 +34,7 @@ public class JFReserva extends javax.swing.JFrame {
         JLLugares = new javax.swing.JLabel();
         JTFLugares = new javax.swing.JTextField();
         JLHorario = new javax.swing.JLabel();
-        JTFHorario = new javax.swing.JTextField();
+        JTFHoraRes = new javax.swing.JTextField();
         JLClienteReserv = new javax.swing.JLabel();
         jlCliente = new javax.swing.JLabel();
         JTFClienteReser = new javax.swing.JTextField();
@@ -79,11 +79,11 @@ public class JFReserva extends javax.swing.JFrame {
         JLHorario.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         JLHorario.setText("Horário");
 
-        JTFHorario.setBackground(new java.awt.Color(255, 255, 51));
-        JTFHorario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        JTFHorario.addActionListener(new java.awt.event.ActionListener() {
+        JTFHoraRes.setBackground(new java.awt.Color(255, 255, 51));
+        JTFHoraRes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        JTFHoraRes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JTFHorarioActionPerformed(evt);
+                JTFHoraResActionPerformed(evt);
             }
         });
 
@@ -153,12 +153,12 @@ public class JFReserva extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(JLHorario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JTFHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JTFHoraRes, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(50, 50, 50))))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -168,7 +168,7 @@ public class JFReserva extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jlCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -187,7 +187,7 @@ public class JFReserva extends javax.swing.JFrame {
                     .addComponent(JLLugares)
                     .addComponent(JTFLugares, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JLHorario)
-                    .addComponent(JTFHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JTFHoraRes, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JLLugares1)
@@ -232,9 +232,9 @@ public class JFReserva extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JTFLugaresActionPerformed
 
-    private void JTFHorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFHorarioActionPerformed
+    private void JTFHoraResActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFHoraResActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_JTFHorarioActionPerformed
+    }//GEN-LAST:event_JTFHoraResActionPerformed
 
     private void JTFClienteReserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFClienteReserActionPerformed
         // TODO add your handling code here:
@@ -285,7 +285,7 @@ public class JFReserva extends javax.swing.JFrame {
     private javax.swing.JLabel JLLugares;
     private javax.swing.JLabel JLLugares1;
     private javax.swing.JTextField JTFClienteReser;
-    private javax.swing.JTextField JTFHorario;
+    private javax.swing.JTextField JTFHoraRes;
     private javax.swing.JTextField JTFLugares;
     private javax.swing.JTextField JTFNumMesa;
     private javax.swing.JLabel jLabel1;

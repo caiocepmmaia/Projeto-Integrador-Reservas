@@ -9,26 +9,25 @@ package model;
  * @author 181810115
  */
 public class Mesa {
-    private int idMesa;
-    private String andar;
+    private int numMesa;
     private int lugares;
     private String disponibilidade;
 
     public Mesa() {
     }
 
-    public Mesa(int idMesa, String andar, int lugares,String disponibilidade) {
-        this.idMesa = idMesa;
+    public Mesa(int numMesa, String andar, int lugares,String disponibilidade) {
+        this.numMesa = numMesa;
         this.lugares = lugares;
         this.disponibilidade = disponibilidade;
     }
 
-    public int getIdMesa() {
-        return idMesa;
+    public int getnumMesa() {
+        return numMesa;
     }
 
-    public void setIdMesa(int idMesa) {
-        this.idMesa = idMesa;
+    public void setnumMesa(int numMesa) {
+        this.numMesa = numMesa;
     }
 
 
@@ -51,7 +50,7 @@ public class Mesa {
 
     @Override
     public String toString() {
-        return "        Mesa        \t" + "\nMesa: \t" + idMesa + "\nLugares: \t" + lugares + disponibilidade + "\nDeisponibilidade: \t" + '.';
+        return "        Mesa        \t" + "\nMesa: \t" + numMesa + "\nLugares: \t" + lugares + disponibilidade + "\nDeisponibilidade: \t" + '.';
     }
     
     
