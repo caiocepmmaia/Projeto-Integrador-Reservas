@@ -5,6 +5,11 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import model.Cliente;
+import servicos.ClienteServicos;
+import servicos.ServicosFactory;
+
 /**
  *
  * @author Caio
@@ -17,6 +22,30 @@ public class JFCliente extends javax.swing.JFrame {
     public JFCliente() {
         initComponents();
     }
+    
+    public boolean validaInputs(){
+        if(JTFCPF.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Insira o CPF aqui.");
+            JTFCPF.requestFocus();
+            return false;
+        }else if (JTFNome.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Insira o nome aqui.");
+            JTFNome.requestFocus();
+            return false;
+        }else if (JTFTelefone.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Insira o telefone aqui.");
+            JTFTelefone.requestFocus();
+            return false;
+        }else if(JTFEndereco.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Preencha o endereço aqui.");
+            JTFEndereco.requestFocus();
+            return false;
+        } else if (!JRBpagFormaCréd.isSelected() && !JRBpagFormaDeb.isSelected() && !JRBpagFormaDin.isSelected() && !JRBpagFormaPIX.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Campo de pagamento obrigatório!");
+            return false;
+        }
+        return true;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,7 +56,7 @@ public class JFCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        bgPag = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -112,6 +141,11 @@ public class JFCliente extends javax.swing.JFrame {
         });
 
         JRBpagFormaCréd.setText("Crédito");
+        JRBpagFormaCréd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JRBpagFormaCrédActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setText("Forma de Pagamento");
@@ -124,8 +158,18 @@ public class JFCliente extends javax.swing.JFrame {
         });
 
         JRBpagFormaDin.setText("Dinheiro Físico");
+        JRBpagFormaDin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JRBpagFormaDinActionPerformed(evt);
+            }
+        });
 
         JRBpagFormaPIX.setText("PIX");
+        JRBpagFormaPIX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JRBpagFormaPIXActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Obrigado pela preferência!");
 
@@ -134,6 +178,11 @@ public class JFCliente extends javax.swing.JFrame {
         JBEditar.setText("Editar");
 
         JBSalvar.setText("Salvar");
+        JBSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBSalvarActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Limpar");
 
@@ -291,6 +340,7 @@ public class JFCliente extends javax.swing.JFrame {
 
     private void JRBpagFormaDebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBpagFormaDebActionPerformed
         // TODO add your handling code here:
+        bgPag2 = evt.getActionCommand();
     }//GEN-LAST:event_JRBpagFormaDebActionPerformed
 
     private void JTFEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFEnderecoActionPerformed
@@ -300,6 +350,42 @@ public class JFCliente extends javax.swing.JFrame {
     private void JTFNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JTFNomeActionPerformed
+    private static String bgPag2;
+    private void JBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSalvarActionPerformed
+        // TODO add your handling code here:
+        if (validaInputs()){
+            String cpf = JTFCPF.getText();
+            String nome = JTFNome.getText();
+            String telefone = JTFTelefone.getText();
+            String endereco = JTFEndereco.getText();
+            String pagForma = bgPag2;
+            
+            ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+            Cliente c = new Cliente (0, nome, cpf, pagForma, telefone, endereco);
+            if (JBSalvar.getText().equals("Salvar")){
+                clienteS.cadastroCliente(c);
+            }else {
+                clienteS.atualizarCliente(c);
+            }
+            //addRowToTable();
+            limparCampos();
+        }
+    }//GEN-LAST:event_JBSalvarActionPerformed
+
+    private void JRBpagFormaPIXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBpagFormaPIXActionPerformed
+        // TODO add your handling code here:
+        bgPag2 = evt.getActionCommand();
+    }//GEN-LAST:event_JRBpagFormaPIXActionPerformed
+
+    private void JRBpagFormaDinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBpagFormaDinActionPerformed
+        // TODO add your handling code here:
+        bgPag2 = evt.getActionCommand();
+    }//GEN-LAST:event_JRBpagFormaDinActionPerformed
+
+    private void JRBpagFormaCrédActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBpagFormaCrédActionPerformed
+        // TODO add your handling code here:
+        bgPag2 = evt.getActionCommand();
+    }//GEN-LAST:event_JRBpagFormaCrédActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,6 +421,12 @@ public class JFCliente extends javax.swing.JFrame {
             }
         });
     }
+        public void limparCampos() {
+        JTFNome.setText("");
+        JTFCPF.setText("");
+        JTFTelefone.setText("");
+        JTFEndereco.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBDeletar;
@@ -350,7 +442,7 @@ public class JFCliente extends javax.swing.JFrame {
     private javax.swing.JTextField JTFEndereco;
     private javax.swing.JTextField JTFNome;
     private javax.swing.JTextField JTFTelefone;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup bgPag;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

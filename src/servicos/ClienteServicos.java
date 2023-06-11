@@ -29,7 +29,7 @@ public class ClienteServicos {
         return cDAO.getClienteByDoc(cpf);
     }
     
-    public void atualizarPessoa(Cliente cVO){
+    public void atualizarCliente(Cliente cVO){
         ClienteDAO cDAO = DAOFactory.getClienteDAO();
         cDAO.atualizarClienteDAO(cVO);
     }
