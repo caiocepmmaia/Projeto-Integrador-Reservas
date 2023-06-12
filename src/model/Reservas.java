@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.time.LocalTime;
+
 
 /**
  *
@@ -13,12 +13,12 @@ import java.time.LocalTime;
 public class Reservas {
     private int idReserva;
     private String qntAssento;
-    private LocalTime horaRes;
+    private String horaRes;
 
     public Reservas() {
     }
 
-    public Reservas(int idReserva, String qntAssento, LocalTime horaRes) {
+    public Reservas(int idReserva, String qntAssento, String horaRes) {
         this.idReserva = idReserva;
         this.qntAssento = qntAssento;
         this.horaRes = horaRes;
@@ -40,11 +40,11 @@ public class Reservas {
         this.qntAssento = qntAssento;
     }
 
-    public LocalTime getHoraRes() {
+    public String getHoraRes() {
         return horaRes;
     }
 
-    public void setHoraRes(LocalTime horaRes) {
+    public void setHoraRes(String horaRes) {
         this.horaRes = horaRes;
     }
 

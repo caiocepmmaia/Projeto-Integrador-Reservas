@@ -53,7 +53,7 @@ public class ClienteDAO {
                 c.setTelefone(rs.getString("telefone"));
                 clientes.add(c);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao listar clientes.\n"
                     + e.getMessage());
         }
@@ -94,7 +94,7 @@ public class ClienteDAO {
             pst.setString(4, cVO.getPagForma());
             pst.setString(5, cVO.getTelefone());
             pst.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erro ao atualizar Cliente.\n"
                     + e.getMessage());
         }
