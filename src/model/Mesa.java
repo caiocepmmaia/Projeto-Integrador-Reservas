@@ -9,33 +9,33 @@ package model;
  * @author 181810115
  */
 public class Mesa {
-    private int numMesa;
-    private int lugares;
+    private String numMesa;
+    private String lugares;
     private String disponibilidade;
 
     public Mesa() {
     }
 
-    public Mesa(int numMesa, String andar, int lugares,String disponibilidade) {
+    public Mesa(String numMesa, String andar, String lugares,String disponibilidade) {
         this.numMesa = numMesa;
         this.lugares = lugares;
         this.disponibilidade = disponibilidade;
     }
 
-    public int getnumMesa() {
+    public String getnumMesa() {
         return numMesa;
     }
 
-    public void setnumMesa(int numMesa) {
+    public void setnumMesa(String numMesa) {
         this.numMesa = numMesa;
     }
 
 
-    public int getLugares() {
+    public String getLugares() {
         return lugares;
     }
 
-    public void setLugares(int lugares) {
+    public void setLugares(String lugares) {
         this.lugares = lugares;
     }
 

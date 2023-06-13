@@ -23,8 +23,8 @@ public class MesaDAO {
            String sql = "insert into mesas values (null, ?,?,?)";
            PreparedStatement pst = con.prepareStatement(sql);
            pst.setString(1, mVO.getDisponibilidade());
-           pst.setInt(2, mVO.getLugares());
-           pst.setInt(3, mVO.getnumMesa());
+           pst.setString(2, mVO.getLugares());
+           pst.setString(3, mVO.getnumMesa());
            pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar cliente.\n"
@@ -40,9 +40,9 @@ public class MesaDAO {
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
                 Mesa m = new Mesa();
-                m.setnumMesa(rs.getInt("numMesa"));
+                m.setnumMesa(rs.getString("numMesa"));
                 m.setDisponibilidade(rs.getString("disponibilidade"));
-                m.setLugares(rs.getInt("lugares"));
+                m.setLugares(rs.getString("lugares"));
                 mesas.add(m);
             }
         } catch (SQLException e) {
@@ -51,18 +51,18 @@ public class MesaDAO {
         }
         return mesas;
     }
-    public Mesa getMesaByDoc(int numMesa){
+    public Mesa getMesaByDoc(String numMesa){
         Mesa m = new Mesa();
         try {
             Connection con = Conexao.getConexao();
             String sql = "select * from mesas where numMesa = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setInt(1, numMesa);
+            pst.setString(1, numMesa);
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
-                m.setnumMesa(rs.getInt("numMesa"));
+                m.setnumMesa(rs.getString("numMesa"));
                 m.setDisponibilidade(rs.getString("disponibilidade"));
-                m.setLugares(rs.getInt("lugares"));
+                m.setLugares(rs.getString("lugares"));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar numero Mesa.\n"
@@ -77,20 +77,20 @@ public class MesaDAO {
                     + "where numMesa = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, mVO.getDisponibilidade());
-            pst.setInt(2, mVO.getLugares());
-            pst.setInt(3, mVO.getnumMesa());
+            pst.setString(2, mVO.getLugares());
+            pst.setString(3, mVO.getnumMesa());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar Mesa.\n"
             + e.getMessage());
         }
     }
-    public void deletarMesaDAO(int numMesa){
+    public void deletarMesaDAO(String numMesa){
         try {
             Connection con = Conexao.getConexao();
             String sql = "delete from mesas where numMesa = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setInt(1, numMesa);
+            pst.setString(1, numMesa);
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao deletar mesa do cadastro.\n"

@@ -21,13 +21,13 @@ public class ClienteDAO {
     public void cadastrarClienteDAO(Cliente cVO) {
         try {
             Connection con = Conexao.getConexao();
-            String sql = "insert into clientes values (null,?,?,?,?,?,?)";
+            String sql = "insert into clientes values (?,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, cVO.getCpf());
-            pst.setString(2, cVO.getEndereco());
-            pst.setString(3, cVO.getNome());
-            pst.setString(4, cVO.getPagForma());
-            pst.setString(5, cVO.getTelefone());
+            pst.setString(1, cVO.getNome());
+            pst.setString(2, cVO.getCpf());
+            pst.setString(3, cVO.getTelefone());
+            pst.setString(4, cVO.getEndereco());
+            pst.setString(5, cVO.getPagForma());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar cliente.\n"

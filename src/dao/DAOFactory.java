@@ -9,11 +9,19 @@ package dao;
  * @author 182120002
  */
 public class DAOFactory {
-    
+
     private static ClienteDAO cDAO = new ClienteDAO();
-    
-    
-    public static ClienteDAO getClienteDAO(){
+    private static ReservaDAO rDAO = new ReservaDAO();
+    private static MesaDAO mDAO = new MesaDAO();
+
+    public static ClienteDAO getClienteDAO() {
         return cDAO;
+    }
+
+    public static ReservaDAO getReservaDAO() {
+        return rDAO;
+    }
+    public static MesaDAO getMesaDAO() {
+        return mDAO;
     }
 }

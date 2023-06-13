@@ -6,6 +6,7 @@
 package view;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import servicos.ClienteServicos;
 import servicos.ServicosFactory;
@@ -22,28 +23,50 @@ public class JFCliente extends javax.swing.JFrame {
     public JFCliente() {
         initComponents();
     }
-    
-    public boolean validaInputs(){
-        if(JTFCPF.getText().equals("")){
+
+    public void addRowToTable() {
+        DefaultTableModel model = (DefaultTableModel) JTClientes.getModel();
+        model.getDataVector().removeAllElements();
+        model.fireTableDataChanged();;
+        Object rowData[] = new Object[5];
+        ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+        for (Cliente cliente : clienteS.getClientes()){
+            rowData[0] = cliente.getNome();
+            rowData[1] = cliente.getCpf();
+            rowData[2] = cliente.getTelefone();
+            rowData[3] = cliente.getEndereco();
+            rowData[4] = cliente.getPagForma();
+            model.addRow(rowData);
+        }
+
+    }
+
+    public boolean validaInputs() {
+        if (JTFCPF.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Insira o CPF aqui.");
             JTFCPF.requestFocus();
             return false;
-        }else if (JTFNome.getText().equals("")){
+        } else if (JTFNome.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Insira o nome aqui.");
             JTFNome.requestFocus();
             return false;
-        }else if (JTFTelefone.getText().equals("")){
+        } else if (JTFTelefone.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Insira o telefone aqui.");
             JTFTelefone.requestFocus();
             return false;
-        }else if(JTFEndereco.getText().equals("")){
+        } else if (JTFEndereco.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Preencha o endereço aqui.");
             JTFEndereco.requestFocus();
             return false;
-        } else if (!JRBpagFormaCréd.isSelected() && !JRBpagFormaDeb.isSelected() && !JRBpagFormaDin.isSelected() && !JRBpagFormaPIX.isSelected()) {
-            JOptionPane.showMessageDialog(this, "Campo de pagamento obrigatório!");
+        }else if (JTFPagForma.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Insira a forma de pagamento.");
+            JTFPagForma.requestFocus();
             return false;
         }
+        /* else if (!JRBpagFormaCréd.isSelected() && !JRBpagFormaDeb.isSelected() && !JRBpagFormaDin.isSelected() && !JRBpagFormaPIX.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Campo de pagamento obrigatório!");
+            return false;
+        }*/
         return true;
     }
 
@@ -70,11 +93,7 @@ public class JFCliente extends javax.swing.JFrame {
         JTFTelefone = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         JTFEndereco = new javax.swing.JTextField();
-        JRBpagFormaCréd = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
-        JRBpagFormaDeb = new javax.swing.JRadioButton();
-        JRBpagFormaDin = new javax.swing.JRadioButton();
-        JRBpagFormaPIX = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
         JBDeletar = new javax.swing.JButton();
         JBEditar = new javax.swing.JButton();
@@ -83,6 +102,7 @@ public class JFCliente extends javax.swing.JFrame {
         JBSair = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTClientes = new javax.swing.JTable();
+        JTFPagForma = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -140,36 +160,8 @@ public class JFCliente extends javax.swing.JFrame {
             }
         });
 
-        JRBpagFormaCréd.setText("Crédito");
-        JRBpagFormaCréd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBpagFormaCrédActionPerformed(evt);
-            }
-        });
-
         jLabel6.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel6.setText("Forma de Pagamento");
-
-        JRBpagFormaDeb.setText("Débito");
-        JRBpagFormaDeb.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBpagFormaDebActionPerformed(evt);
-            }
-        });
-
-        JRBpagFormaDin.setText("Dinheiro Físico");
-        JRBpagFormaDin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBpagFormaDinActionPerformed(evt);
-            }
-        });
-
-        JRBpagFormaPIX.setText("PIX");
-        JRBpagFormaPIX.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBpagFormaPIXActionPerformed(evt);
-            }
-        });
 
         jLabel7.setText("Obrigado pela preferência!");
 
@@ -211,6 +203,14 @@ public class JFCliente extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(JTClientes);
 
+        JTFPagForma.setBackground(new java.awt.Color(255, 204, 204));
+        JTFPagForma.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        JTFPagForma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JTFPagFormaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -228,15 +228,9 @@ public class JFCliente extends javax.swing.JFrame {
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jLabel6)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(JRBpagFormaCréd)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                            .addComponent(JTFPagForma)
                                             .addGap(18, 18, 18)
-                                            .addComponent(JRBpagFormaDeb)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(JRBpagFormaDin)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(JRBpagFormaPIX)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(JBSalvar)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jButton4))
@@ -290,12 +284,9 @@ public class JFCliente extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JRBpagFormaCréd)
-                    .addComponent(JRBpagFormaDeb)
-                    .addComponent(JRBpagFormaDin)
-                    .addComponent(JRBpagFormaPIX)
                     .addComponent(jButton4)
-                    .addComponent(JBSalvar))
+                    .addComponent(JBSalvar)
+                    .addComponent(JTFPagForma, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -338,11 +329,6 @@ public class JFCliente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void JRBpagFormaDebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBpagFormaDebActionPerformed
-        // TODO add your handling code here:
-        bgPag2 = evt.getActionCommand();
-    }//GEN-LAST:event_JRBpagFormaDebActionPerformed
-
     private void JTFEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFEnderecoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JTFEnderecoActionPerformed
@@ -353,39 +339,28 @@ public class JFCliente extends javax.swing.JFrame {
     private static String bgPag2;
     private void JBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSalvarActionPerformed
         // TODO add your handling code here:
-        if (validaInputs()){
+        if (validaInputs()) {
             String cpf = JTFCPF.getText();
             String nome = JTFNome.getText();
             String telefone = JTFTelefone.getText();
             String endereco = JTFEndereco.getText();
-            String pagForma = bgPag2;
-            
+            String pagForma = JTFPagForma.getText();
+
             ClienteServicos clienteS = ServicosFactory.getClienteServicos();
-            Cliente c = new Cliente (0, nome, cpf, pagForma, telefone, endereco);
-            if (JBSalvar.getText().equals("Salvar")){
+            Cliente c = new Cliente(0, nome, cpf, telefone, endereco, pagForma);
+            if (JBSalvar.getText().equals("Salvar")) {
                 clienteS.cadastroCliente(c);
-            }else {
+            } else {
                 clienteS.atualizarCliente(c);
             }
-            //addRowToTable();
+            addRowToTable();
             limparCampos();
         }
     }//GEN-LAST:event_JBSalvarActionPerformed
 
-    private void JRBpagFormaPIXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBpagFormaPIXActionPerformed
+    private void JTFPagFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFPagFormaActionPerformed
         // TODO add your handling code here:
-        bgPag2 = evt.getActionCommand();
-    }//GEN-LAST:event_JRBpagFormaPIXActionPerformed
-
-    private void JRBpagFormaDinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBpagFormaDinActionPerformed
-        // TODO add your handling code here:
-        bgPag2 = evt.getActionCommand();
-    }//GEN-LAST:event_JRBpagFormaDinActionPerformed
-
-    private void JRBpagFormaCrédActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBpagFormaCrédActionPerformed
-        // TODO add your handling code here:
-        bgPag2 = evt.getActionCommand();
-    }//GEN-LAST:event_JRBpagFormaCrédActionPerformed
+    }//GEN-LAST:event_JTFPagFormaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -421,7 +396,8 @@ public class JFCliente extends javax.swing.JFrame {
             }
         });
     }
-        public void limparCampos() {
+
+    public void limparCampos() {
         JTFNome.setText("");
         JTFCPF.setText("");
         JTFTelefone.setText("");
@@ -433,14 +409,11 @@ public class JFCliente extends javax.swing.JFrame {
     private javax.swing.JButton JBEditar;
     private javax.swing.JButton JBSair;
     private javax.swing.JButton JBSalvar;
-    private javax.swing.JRadioButton JRBpagFormaCréd;
-    private javax.swing.JRadioButton JRBpagFormaDeb;
-    private javax.swing.JRadioButton JRBpagFormaDin;
-    private javax.swing.JRadioButton JRBpagFormaPIX;
     private javax.swing.JTable JTClientes;
     private javax.swing.JTextField JTFCPF;
     private javax.swing.JTextField JTFEndereco;
     private javax.swing.JTextField JTFNome;
+    private javax.swing.JTextField JTFPagForma;
     private javax.swing.JTextField JTFTelefone;
     private javax.swing.ButtonGroup bgPag;
     private javax.swing.JButton jButton4;
