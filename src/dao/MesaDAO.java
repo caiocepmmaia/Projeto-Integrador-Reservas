@@ -20,11 +20,10 @@ public class MesaDAO {
     public void cadastrarMesaDAO(Mesa mVO){
         try {
            Connection con = Conexao.getConexao();
-           String sql = "insert into mesas values (null, ?,?,?)";
+           String sql = "insert into mesas values (null,?,?)";
            PreparedStatement pst = con.prepareStatement(sql);
-           pst.setString(1, mVO.getDisponibilidade());
+           pst.setString(1, mVO.getnumMesa());
            pst.setString(2, mVO.getLugares());
-           pst.setString(3, mVO.getnumMesa());
            pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar cliente.\n"
@@ -41,7 +40,6 @@ public class MesaDAO {
             while(rs.next()){
                 Mesa m = new Mesa();
                 m.setnumMesa(rs.getString("numMesa"));
-                m.setDisponibilidade(rs.getString("disponibilidade"));
                 m.setLugares(rs.getString("lugares"));
                 mesas.add(m);
             }
@@ -60,9 +58,8 @@ public class MesaDAO {
             pst.setString(1, numMesa);
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
-                m.setnumMesa(rs.getString("numMesa"));
-                m.setDisponibilidade(rs.getString("disponibilidade"));
                 m.setLugares(rs.getString("lugares"));
+                m.setnumMesa(rs.getString("numMesa"));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar numero Mesa.\n"
@@ -73,12 +70,11 @@ public class MesaDAO {
     public void atualizarMesaDAO(Mesa mVO){
         try {
             Connection con = Conexao.getConexao();
-            String sql = "update mesas set disponibilidade = ?,lugares = ?"
+            String sql = "update mesas set lugares = ?"
                     + "where numMesa = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, mVO.getDisponibilidade());
+            pst.setString(1, mVO.getnumMesa());
             pst.setString(2, mVO.getLugares());
-            pst.setString(3, mVO.getnumMesa());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar Mesa.\n"

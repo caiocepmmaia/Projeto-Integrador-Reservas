@@ -21,13 +21,12 @@ public class ClienteDAO {
     public void cadastrarClienteDAO(Cliente cVO) {
         try {
             Connection con = Conexao.getConexao();
-            String sql = "insert into clientes values (?,?,?,?,?)";
+            String sql = "insert into clientes values (null,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, cVO.getNome());
             pst.setString(2, cVO.getCpf());
             pst.setString(3, cVO.getTelefone());
             pst.setString(4, cVO.getEndereco());
-            pst.setString(5, cVO.getPagForma());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar cliente.\n"
@@ -46,11 +45,10 @@ public class ClienteDAO {
             while (rs.next()) {
                 Cliente c = new Cliente();
                 c.setIdCliente(rs.getInt("idCliente"));
-                c.setCpf(rs.getString("cpf"));
-                c.setEndereco(rs.getString("endereco"));
                 c.setNome(rs.getString("nome"));
-                c.setPagForma(rs.getString("pagforma"));
+                c.setCpf(rs.getString("cpf"));
                 c.setTelefone(rs.getString("telefone"));
+                c.setEndereco(rs.getString("endereco"));
                 clientes.add(c);
             }
         } catch (SQLException e) {
@@ -70,11 +68,10 @@ public class ClienteDAO {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 c.setIdCliente(rs.getInt("idCliente"));
-                c.setCpf(rs.getString("cpf"));
-                c.setEndereco(rs.getString("endereco"));
                 c.setNome(rs.getString("nome"));
-                c.setPagForma(rs.getString("pagforma"));
+                c.setCpf(rs.getString("cpf"));
                 c.setTelefone(rs.getString("telefone"));
+                c.setEndereco(rs.getString("endereco"));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar CPF./n" + e.getMessage());
@@ -86,20 +83,20 @@ public class ClienteDAO {
         try {
             Connection con = Conexao.getConexao();
             String sql = "update clientes set nome = ?, endereco = ?, telefone = ?"
-                          + "where cpf = ?";
+                    + "where cpf = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, cVO.getCpf());
-            pst.setString(2, cVO.getEndereco());
-            pst.setString(3, cVO.getNome());
-            pst.setString(4, cVO.getPagForma());
-            pst.setString(5, cVO.getTelefone());
+            pst.setString(2, cVO.getNome());
+            pst.setString(3, cVO.getTelefone());
+            pst.setString(4, cVO.getEndereco());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar Cliente.\n"
                     + e.getMessage());
         }
     }
-    public void deletarClienteDAO(String cpf){
+
+    public void deletarClienteDAO(String cpf) {
         try {
             Connection con = Conexao.getConexao();
             String sql = "delete from clientes where cpf = ?";
@@ -110,7 +107,7 @@ public class ClienteDAO {
             System.out.println("Erro ao deletar Cliente do cadastro.\n"
                     + e.getMessage());
         }
-        
+
     }
 
 }

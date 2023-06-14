@@ -10,8 +10,16 @@ package servicos;
  */
 public class ServicosFactory {
     private static ClienteServicos clienteS = new ClienteServicos();
+    private static MesaServicos mesaS = new MesaServicos();
+    private static ReservaServicos reservaS = new ReservaServicos();
     
     public static ClienteServicos getClienteServicos(){
         return clienteS;
+    }
+    public static MesaServicos getMesaServicos() {
+        return mesaS;
+    }
+    public static ReservaServicos getReservaServicos() {
+        return reservaS;
     }
 }

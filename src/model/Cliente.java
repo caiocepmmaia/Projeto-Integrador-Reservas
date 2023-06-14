@@ -13,24 +13,19 @@ public class Cliente {
     private int idCliente;
     private String nome;
     private String cpf;
-    private String pagForma;
     private String endereco;
     private String telefone;
 
     public Cliente() {
     }
 
-    public Cliente(int idCliente, String nome, String cpf, String pagForma, String endereco, String telefone) {
+    public Cliente(int idCliente, String nome, String cpf, String endereco, String telefone) {
         this.idCliente = idCliente;
         this.nome = nome;
         this.cpf = cpf;
-        this.pagForma = pagForma;
         this.endereco = endereco;
         this.telefone = telefone;
     }
-
-
-
 
     public int getIdCliente() {
         return idCliente;
@@ -72,20 +67,10 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public String getPagForma() {
-        return pagForma;
-    }
-
-    public void setPagForma(String pagForma) {
-        this.pagForma = pagForma;
-    }
-
     @Override
     public String toString() {
-        return "        Cliente     " + "\nidCliente: \t" + idCliente + "\nNome: \t" + nome + "\nCPF: \t" + cpf 
-                + "\nForma de Pagamento: \t" + pagForma + "\nEndereço: \t" + endereco + "\nTelefone: \t" + telefone + '.';
+        return "        Cliente     " + "\nidCliente: \t" + idCliente + "\nNome: \t" + nome + "\nCPF: \t" + cpf
+                + "\nEndereço: \t" + endereco + "\nTelefone: \t" + telefone + '.';
     }
-
-
 
 }// FIM OBJETO CLIENTES!

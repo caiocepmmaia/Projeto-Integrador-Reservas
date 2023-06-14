@@ -48,7 +48,6 @@ public class CCliente {
         c1.setIdCliente(geraID());
         c1.setCpf("55857188008");
         c1.setNome("Fernando Lucio da Costa");
-        c1.setPagForma("Débito");
         c1.setEndereco("Av. Nonoai");
         c1.setTelefone("51 9 3214-5896");
         addCliente(c1);
@@ -56,7 +55,6 @@ public class CCliente {
         c2.setIdCliente(geraID());
         c2.setCpf("48944488070");
         c2.setNome("Gabrielzito do CS");
-        c2.setPagForma("Crédito");
         c2.setEndereco("Padre Cacique");
         c2.setTelefone("51 9 1234-1234");
         addCliente(c2);

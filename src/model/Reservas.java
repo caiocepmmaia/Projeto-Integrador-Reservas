@@ -4,32 +4,31 @@
  */
 package model;
 
-
-
 /**
  *
  * @author 181810115
  */
 public class Reservas {
-    private int idReserva;
+
+    private String numReserva;
     private String qntAssento;
     private String horaRes;
 
     public Reservas() {
     }
 
-    public Reservas(int idReserva, String qntAssento, String horaRes) {
-        this.idReserva = idReserva;
+    public Reservas(String numReserva, String qntAssento, String horaRes) {
+        this.numReserva = numReserva;
         this.qntAssento = qntAssento;
         this.horaRes = horaRes;
     }
 
-    public int getIdReserva() {
-        return idReserva;
+    public String getNumReserva() {
+        return numReserva;
     }
 
-    public void setIdReserva(int idReserva) {
-        this.idReserva = idReserva;
+    public void setNumReserva(String numReserva) {
+        this.numReserva = numReserva;
     }
 
     public String getQntAssento() {
@@ -50,8 +49,7 @@ public class Reservas {
 
     @Override
     public String toString() {
-        return "        Reservas        " + "\nIdReserva: \t" + idReserva + "\nAssentos: \t" + qntAssento + "\nHorário da Reserva: \t" + horaRes + '.';
+        return "        Reservas        " + "\nNumero Reserva: \t" + numReserva + "\nAssentos: \t" + qntAssento + "\nHorário da Reserva: \t" + horaRes + '.';
     }
-    
-    
+
 }

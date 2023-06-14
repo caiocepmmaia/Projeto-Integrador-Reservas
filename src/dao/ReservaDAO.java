@@ -22,9 +22,9 @@ public class ReservaDAO {
             Connection con = Conexao.getConexao();
             String sql = "insert into reservas values (null, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setInt(1, rVO.getIdReserva());
-            pst.setString(1, rVO.getHoraRes());
-            pst.setString(1, rVO.getQntAssento());
+            pst.setString(1, rVO.getNumReserva());
+            pst.setString(2, rVO.getHoraRes());
+            pst.setString(3, rVO.getQntAssento());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar reserva.\n"
@@ -40,7 +40,7 @@ public class ReservaDAO {
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
                 Reservas r = new Reservas();
-                r.setIdReserva(rs.getInt("idReserva"));
+                r.setNumReserva(rs.getString("Numera da Reserva"));
                 r.setHoraRes(rs.getString("HoraRes"));
                 r.setQntAssento(rs.getString("QntAssento"));
                 reserva.add(r);
@@ -51,16 +51,16 @@ public class ReservaDAO {
         }
         return reserva;
     }
-    public Reservas getReservaByDoc(int idReserva){
+    public Reservas getReservaByDoc(String numReserva){
         Reservas r = new Reservas();
         try {
             Connection con = Conexao.getConexao();
             String sql = "select * from reservas where idReserva = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setInt(1, idReserva);
+            pst.setString(1, numReserva);
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
-                r.setIdReserva(rs.getInt("idReserva"));
+                r.setNumReserva(rs.getString("Numero da Reserva"));
                 r.setHoraRes(rs.getString("HoraRes"));
                 r.setQntAssento(rs.getString("QntAssento"));
             }
@@ -76,7 +76,7 @@ public class ReservaDAO {
             String sql = "update reservas set HoraRes = ?, QntAssento = ?"
                     + "where idReserva = ?";
             PreparedStatement pst =  con.prepareStatement(sql);
-            pst.setInt(1, rVO.getIdReserva());
+            pst.setString(1, rVO.getNumReserva());
             pst.setString(2, rVO.getHoraRes());
             pst.setString(3, rVO.getQntAssento());
             pst.executeUpdate();
@@ -85,12 +85,12 @@ public class ReservaDAO {
                         + e.getMessage());
         }
     }
-    public void deletarReservasDAO(int idReserva){
+    public void deletarReservasDAO(String numReserva){
         try {
             Connection con = Conexao.getConexao();
             String sql =  "delete from reservas where idReserva = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setInt(1, idReserva);
+            pst.setString(1, numReserva);
         } catch (SQLException e) {
             System.out.println("Erro ao deletar reserva do cadastro.\n"
             + e.getMessage());

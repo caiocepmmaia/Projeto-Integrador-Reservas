@@ -11,15 +11,14 @@ package model;
 public class Mesa {
     private String numMesa;
     private String lugares;
-    private String disponibilidade;
+
 
     public Mesa() {
     }
 
-    public Mesa(String numMesa, String andar, String lugares,String disponibilidade) {
+    public Mesa(String numMesa, String andar, String lugares) {
         this.numMesa = numMesa;
         this.lugares = lugares;
-        this.disponibilidade = disponibilidade;
     }
 
     public String getnumMesa() {
@@ -39,18 +38,14 @@ public class Mesa {
         this.lugares = lugares;
     }
 
-    public String getDisponibilidade() {
-        return disponibilidade;
-    }
 
-    public void setDisponibilidade(String disponibilidade) {
-        this.disponibilidade = disponibilidade;
-    }
+
+
     
 
     @Override
     public String toString() {
-        return "        Mesa        \t" + "\nMesa: \t" + numMesa + "\nLugares: \t" + lugares + disponibilidade + "\nDeisponibilidade: \t" + '.';
+        return "        Mesa        \t" + "\nMesa: \t" + numMesa + "\nLugares: \t" + lugares + '.';
     }
     
     

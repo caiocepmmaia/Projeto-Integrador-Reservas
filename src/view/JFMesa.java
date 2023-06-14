@@ -4,6 +4,11 @@
  */
 package view;
 
+import javax.swing.table.DefaultTableModel;
+import model.Mesa;
+import servicos.MesaServicos;
+import servicos.ServicosFactory;
+
 /**
  *
  * @author 201401665
@@ -15,6 +20,19 @@ public class JFMesa extends javax.swing.JFrame {
      */
     public JFMesa() {
         initComponents();
+        addRowToTable();
+    }
+
+    public void addRowToTable() {
+        DefaultTableModel model = (DefaultTableModel) JTMesa.getModel();
+        model.getDataVector().removeAllElements();
+        Object rowData[] = new Object[2];
+        MesaServicos mesaS = ServicosFactory.getMesaServicos();
+        for (Mesa mesa : mesaS.getMesa()) {
+            rowData[0] = mesa.getnumMesa();
+            rowData[1] = mesa.getLugares();
+            model.addRow(rowData);
+        }
     }
 
     /**
@@ -34,7 +52,9 @@ public class JFMesa extends javax.swing.JFrame {
         JLLugares = new javax.swing.JLabel();
         JTFLugares = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        JTMesa = new javax.swing.JTable();
+        JBSalvar = new javax.swing.JButton();
+        JBDeletar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,7 +87,7 @@ public class JFMesa extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        JTMesa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -90,7 +110,16 @@ public class JFMesa extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(JTMesa);
+
+        JBSalvar.setText("Salvar");
+        JBSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBSalvarActionPerformed(evt);
+            }
+        });
+
+        JBDeletar.setText("Deletar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -107,12 +136,19 @@ public class JFMesa extends javax.swing.JFrame {
                 .addComponent(JTFLugares, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 11, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(JBSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JBDeletar)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -126,8 +162,12 @@ public class JFMesa extends javax.swing.JFrame {
                     .addComponent(JTFNumMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JLLugares)
                     .addComponent(JTFLugares, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JBSalvar)
+                    .addComponent(JBDeletar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -156,7 +196,9 @@ public class JFMesa extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,6 +211,22 @@ public class JFMesa extends javax.swing.JFrame {
     private void JTFNumMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFNumMesaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JTFNumMesaActionPerformed
+
+    private void JBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSalvarActionPerformed
+        // TODO add your handling code here:
+        String numMesa = JTFNumMesa.getText();
+        String lugares = JTFLugares.getText();
+
+        MesaServicos mesaS = ServicosFactory.getMesaServicos();
+        Mesa m = new Mesa(null, numMesa, lugares);
+        if (JBSalvar.getText().equals("Salvar")) {
+            mesaS.cadastroMesa(m);
+        } else {
+            mesaS.atualizarMesa(m);
+            addRowToTable();
+        }
+
+    }//GEN-LAST:event_JBSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,14 +264,16 @@ public class JFMesa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBDeletar;
+    private javax.swing.JButton JBSalvar;
     private javax.swing.JLabel JLLugares;
     private javax.swing.JLabel JLNumMesa;
     private javax.swing.JTextField JTFLugares;
     private javax.swing.JTextField JTFNumMesa;
+    private javax.swing.JTable JTMesa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
