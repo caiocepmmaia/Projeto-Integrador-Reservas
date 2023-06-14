@@ -4,6 +4,7 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Mesa;
 import servicos.MesaServicos;
@@ -120,6 +121,11 @@ public class JFMesa extends javax.swing.JFrame {
         });
 
         JBDeletar.setText("Deletar");
+        JBDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBDeletarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -218,7 +224,7 @@ public class JFMesa extends javax.swing.JFrame {
         String lugares = JTFLugares.getText();
 
         MesaServicos mesaS = ServicosFactory.getMesaServicos();
-        Mesa m = new Mesa(null, numMesa, lugares);
+        Mesa m = new Mesa(numMesa, lugares);
         if (JBSalvar.getText().equals("Salvar")) {
             mesaS.cadastroMesa(m);
         } else {
@@ -227,6 +233,25 @@ public class JFMesa extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_JBSalvarActionPerformed
+
+    private void JBDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBDeletarActionPerformed
+        // TODO add your handling code here:
+        int linha = JTMesa.getSelectedRow();
+        String numMesa = (String) JTMesa.getValueAt(linha, 0);
+        MesaServicos mesaS = ServicosFactory.getMesaServicos();
+        Object[] btnMSG = {"Sim", "Não"};
+        int resp = JOptionPane.showOptionDialog(this,
+                "Deseja reamente deletar " + numMesa, " - Deletar - ",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, btnMSG, btnMSG[0]);
+        if (resp == 0 ){
+            mesaS.deletarCliente(numMesa);
+            addRowToTable();
+            JOptionPane.showMessageDialog(this, numMesa + "Deletado com Sucesso");
+        }else {
+            JOptionPane.showMessageDialog(this, "Operação cancelado.");
+        }
+    }//GEN-LAST:event_JBDeletarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -16,10 +16,12 @@ public class Mesa {
     public Mesa() {
     }
 
-    public Mesa(String numMesa, String andar, String lugares) {
+    public Mesa(String numMesa, String lugares) {
         this.numMesa = numMesa;
         this.lugares = lugares;
     }
+
+ 
 
     public String getnumMesa() {
         return numMesa;
