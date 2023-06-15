@@ -8,19 +8,35 @@ package model;
  *
  * @author 181810115
  */
-public class Reservas {
+public class Reserva {
 
     private String numReserva;
     private String qntAssento;
     private String horaRes;
+    private String resCliente;
 
-    public Reservas() {
-    }
-
-    public Reservas(String numReserva, String qntAssento, String horaRes) {
+    public Reserva(String numReserva, String qntAssento, String horaRes, String resCliente) {
         this.numReserva = numReserva;
         this.qntAssento = qntAssento;
         this.horaRes = horaRes;
+        this.resCliente = resCliente;
+    }
+
+
+
+    public String getResCliente() {
+        return resCliente;
+    }
+
+    public void setResCliente(String resCliente) {
+        this.resCliente = resCliente;
+    }
+
+    
+
+  
+
+    public Reserva() {
     }
 
     public String getNumReserva() {
@@ -49,7 +65,8 @@ public class Reservas {
 
     @Override
     public String toString() {
-        return "        Reservas        " + "\nNumero Reserva: \t" + numReserva + "\nAssentos: \t" + qntAssento + "\nHorário da Reserva: \t" + horaRes + '.';
+        return "Reservas{" + "numReserva=" + numReserva + ", qntAssento=" + qntAssento + ", horaRes=" + horaRes + '}';
     }
 
 }
+

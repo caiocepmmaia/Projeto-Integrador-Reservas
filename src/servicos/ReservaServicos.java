@@ -1,35 +1,33 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package servicos;
 
 import dao.DAOFactory;
-import dao.MesaDAO;
 import dao.ReservaDAO;
 import java.util.ArrayList;
-import model.Mesa;
-import model.Reservas;
+import model.Reserva;
 
 /**
  *
- * @author Caio
+ * @author 181810115
  */
 public class ReservaServicos {
-    public void cadastroReservas (Reservas rVO){
+        public void cadastroReservas (Reserva rVO){
         ReservaDAO rDAO = DAOFactory.getReservaDAO();
         rDAO.cadastrarReservaDAO(rVO);
     }
-    public ArrayList<Reservas> getReservas(){
-        ReservaDAO rDAO = DAOFactory.getReservaDAO();
-        return rDAO.getReserva();
-    }
-    public Reservas getReservasByDoc (String numReserva){
+        public ArrayList<Reserva> getReserva(){
+            ReservaDAO rDAO = DAOFactory.getReservaDAO();
+            return rDAO.getReserva();
+        }
+    public Reserva getReservaByDoc (String numReserva){
         ReservaDAO rDAO = DAOFactory.getReservaDAO();
         return rDAO.getReservaByDoc(numReserva);
     }
-    public void atualizarReservas(Reservas rVO){
+        
+    public void atualizarReservas(Reserva rVO){
         ReservaDAO rDAO = DAOFactory.getReservaDAO();
         rDAO.atualizarReservasDAO(rVO);
     }
@@ -39,3 +37,5 @@ public class ReservaServicos {
     }
 
 }
+
+
