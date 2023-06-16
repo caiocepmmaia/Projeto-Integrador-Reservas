@@ -13,22 +13,32 @@ public class Reserva {
     private String numReserva;
     private String qntAssento;
     private String horaRes;
-    private String resCliente;
+    private Cliente resCliente;
+    private Mesa numMesa;
 
-    public Reserva(String numReserva, String qntAssento, String horaRes, String resCliente) {
+    public Reserva(String numReserva, String qntAssento, String horaRes, Cliente resCliente, Mesa numMesa) {
         this.numReserva = numReserva;
         this.qntAssento = qntAssento;
         this.horaRes = horaRes;
         this.resCliente = resCliente;
+        this.numMesa = numMesa;
+    }
+
+    public Mesa getNumMesa() {
+        return numMesa;
+    }
+
+    public void setNumMesa(Mesa numMesa) {
+        this.numMesa = numMesa;
     }
 
 
 
-    public String getResCliente() {
+    public Cliente getResCliente() {
         return resCliente;
     }
 
-    public void setResCliente(String resCliente) {
+    public void setResCliente(Cliente resCliente) {
         this.resCliente = resCliente;
     }
 

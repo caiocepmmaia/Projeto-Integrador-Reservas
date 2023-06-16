@@ -16,6 +16,14 @@ public class Mesa {
     public Mesa() {
     }
 
+    public String getNumMesa() {
+        return numMesa;
+    }
+
+    public void setNumMesa(String numMesa) {
+        this.numMesa = numMesa;
+    }
+
     public Mesa(String numMesa, String lugares) {
         this.numMesa = numMesa;
         this.lugares = lugares;

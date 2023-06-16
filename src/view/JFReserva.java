@@ -7,8 +7,10 @@ package view;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
+import model.Mesa;
 import model.Reserva;
 import servicos.ClienteServicos;
+import servicos.MesaServicos;
 import servicos.ReservaServicos;
 import servicos.ServicosFactory;
 
@@ -54,9 +56,9 @@ public class JFReserva extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Campo obrigatorio");
             JTFHoraRes.requestFocus();
             return false;
-        }else if(JTFClienteReser.getText().equals("")){
+        }else if(JTFnumReserva.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Campo Obriagatório");
-            JTFClienteReser.requestFocus();
+            JTFnumReserva.requestFocus();
             return false;
         }
         return true;
@@ -84,14 +86,18 @@ public class JFReserva extends javax.swing.JFrame {
         JTFHoraRes = new javax.swing.JTextField();
         JLClienteReserv = new javax.swing.JLabel();
         JLCliente = new javax.swing.JLabel();
-        JTFClienteReser = new javax.swing.JTextField();
+        JTFnumReserva = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTReservas = new javax.swing.JTable();
         JLLugares1 = new javax.swing.JLabel();
         JTFNumMesa = new javax.swing.JTextField();
         JBSalvar = new javax.swing.JButton();
-        JTFClienteReser1 = new javax.swing.JTextField();
+        JTFClienteReser = new javax.swing.JTextField();
         JLLugares2 = new javax.swing.JLabel();
+        JBDeletar = new javax.swing.JButton();
+        JBLimpar = new javax.swing.JButton();
+        JBFechar = new javax.swing.JButton();
+        JBEditar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,11 +149,11 @@ public class JFReserva extends javax.swing.JFrame {
         JLCliente.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         JLCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 255)));
 
-        JTFClienteReser.setBackground(new java.awt.Color(255, 255, 51));
-        JTFClienteReser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        JTFClienteReser.addActionListener(new java.awt.event.ActionListener() {
+        JTFnumReserva.setBackground(new java.awt.Color(255, 255, 51));
+        JTFnumReserva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        JTFnumReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JTFClienteReserActionPerformed(evt);
+                JTFnumReservaActionPerformed(evt);
             }
         });
 
@@ -191,16 +197,44 @@ public class JFReserva extends javax.swing.JFrame {
             }
         });
 
-        JTFClienteReser1.setBackground(new java.awt.Color(255, 255, 51));
-        JTFClienteReser1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        JTFClienteReser1.addActionListener(new java.awt.event.ActionListener() {
+        JTFClienteReser.setBackground(new java.awt.Color(255, 255, 51));
+        JTFClienteReser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        JTFClienteReser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JTFClienteReser1ActionPerformed(evt);
+                JTFClienteReserActionPerformed(evt);
             }
         });
 
         JLLugares2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         JLLugares2.setText("Reserva");
+
+        JBDeletar.setText("Deletar");
+        JBDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBDeletarActionPerformed(evt);
+            }
+        });
+
+        JBLimpar.setText("Limpar Campos");
+        JBLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBLimparActionPerformed(evt);
+            }
+        });
+
+        JBFechar.setText("Sair");
+        JBFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBFecharActionPerformed(evt);
+            }
+        });
+
+        JBEditar.setText("Editar");
+        JBEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -208,25 +242,14 @@ public class JFReserva extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(JLClienteReserv)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(JTFClienteReser1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)))
-                        .addComponent(JLCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(JBSalvar)))
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JLClienteReserv)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JTFClienteReser, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
+                .addGap(40, 40, 40)
+                .addComponent(JLCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
@@ -249,19 +272,37 @@ public class JFReserva extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(JLLugares2)
                                 .addGap(18, 18, 18)
-                                .addComponent(JTFClienteReser, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(JTFnumReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(JBLimpar)))
+                        .addContainerGap())))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(JBDeletar)
+                        .addGap(72, 72, 72)
+                        .addComponent(JBEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JBSalvar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(JBFechar)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(4, 4, 4)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JLClienteReserv)
                     .addComponent(JLCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JTFClienteReser1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JTFClienteReser, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JLLugares)
@@ -275,12 +316,18 @@ public class JFReserva extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JLLugares2)
-                    .addComponent(JTFClienteReser, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JTFnumReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(JBLimpar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JBSalvar)
-                .addContainerGap())
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JBDeletar)
+                    .addComponent(JBSalvar)
+                    .addComponent(JBEditar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(JBFechar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -322,9 +369,9 @@ public class JFReserva extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_JTFHoraResActionPerformed
 
-    private void JTFClienteReserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFClienteReserActionPerformed
+    private void JTFnumReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFnumReservaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_JTFClienteReserActionPerformed
+    }//GEN-LAST:event_JTFnumReservaActionPerformed
 
     private void JTFNumMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFNumMesaActionPerformed
         // TODO add your handling code here:
@@ -335,12 +382,14 @@ public class JFReserva extends javax.swing.JFrame {
         if (validaInputs()){
             ReservaServicos reservaS = ServicosFactory.getReservaServicos();
             ClienteServicos clienteS = ServicosFactory.getClienteServicos();
-            String numReserva = JTFClienteReser.getText();
+            MesaServicos mesaS = ServicosFactory.getMesaServicos();
+            String numReserva = JTFnumReserva.getText();
             String qntAssento = JTFLugares.getText();
             String horaRes = JTFHoraRes.getText();
-            Cliente ResCliente = clienteS.getClienteByDoc(JLCliente.getText());
+            Cliente ResCliente = clienteS.getClienteByDoc(JTFClienteReser.getText());
+            Mesa numMesa = mesaS.getMesaByDoc(JTFNumMesa.getText());
             
-            Reserva r = new Reserva(numReserva,qntAssento,horaRes,ResCliente);
+            Reserva r = new Reserva(numReserva,qntAssento,horaRes,ResCliente,numMesa);
             System.out.println(r.toString());
             if (JBSalvar.getText().equals("Salvar")){
                 reservaS.cadastroReservas(r);
@@ -352,10 +401,70 @@ public class JFReserva extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_JBSalvarActionPerformed
 
-    private void JTFClienteReser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFClienteReser1ActionPerformed
+    private void JTFClienteReserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFClienteReserActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_JTFClienteReser1ActionPerformed
+    }//GEN-LAST:event_JTFClienteReserActionPerformed
 
+    private void JBDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBDeletarActionPerformed
+        // TODO add your handling code here:
+        int linha = JTReservas.getSelectedRow();
+        String numReserva = (String) JTReservas.getValueAt(linha, 0);
+        ReservaServicos reservaS = ServicosFactory.getReservaServicos();
+        Object[] btnMSG = {"Sim", "Não"};
+        int resp = JOptionPane.showOptionDialog(this,
+                "Deseja Realmente deletar" + numReserva, "DELETAR RESERVA",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, btnMSG, btnMSG[0]);
+        if (resp == 0) {
+            reservaS.deletarReservas(numReserva);
+            addRowToTable();
+            JOptionPane.showMessageDialog(this, "Reserva Cancelada/Finalizada");
+        }else {
+            JOptionPane.showMessageDialog(this, "Cancelado");
+        }
+        JBLimpar.doClick();
+    }//GEN-LAST:event_JBDeletarActionPerformed
+
+    private void JBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBLimparActionPerformed
+        // TODO add your handling code here:
+        if (JBLimpar.getText().equals("Limpar")){
+            limparCampos();
+        }else {
+            JBLimpar.setText("Limpar");
+            JBSalvar.setText("Salvar");
+            limparCampos();
+        }
+    }//GEN-LAST:event_JBLimparActionPerformed
+
+    private void JBFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBFecharActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_JBFecharActionPerformed
+
+    private void JBEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBEditarActionPerformed
+        // TODO add your handling code here:
+        JBDeletar.setVisible(false);
+        JBSalvar.setText("Confirmar");
+        JBLimpar.setText("Cancelar");
+        
+        int linha = JTReservas.getSelectedRow();
+        String numReserva = (String) JTReservas.getValueAt(linha, 0);
+        ReservaServicos reservaS = ServicosFactory.getReservaServicos();
+        MesaServicos mesaS = ServicosFactory.getMesaServicos();
+        Reserva r = reservaS.getReservaByDoc(numReserva);
+        JTFClienteReser.setText(r.getResCliente().getCpf());
+        JTFHoraRes.setText(r.getHoraRes());
+        JTFLugares.setText(r.getQntAssento());
+        JTFNumMesa.setText(r.getNumMesa().getnumMesa());
+    }//GEN-LAST:event_JBEditarActionPerformed
+
+    public void limparCampos() {
+        JTFnumReserva.setText("");
+        JTFClienteReser.setText("");
+        JTFHoraRes.setText("");
+        JTFLugares.setText("");
+        JTFNumMesa.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -392,6 +501,10 @@ public class JFReserva extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBDeletar;
+    private javax.swing.JButton JBEditar;
+    private javax.swing.JButton JBFechar;
+    private javax.swing.JButton JBLimpar;
     private javax.swing.JButton JBSalvar;
     private javax.swing.JLabel JLCliente;
     private javax.swing.JLabel JLClienteReserv;
@@ -400,10 +513,10 @@ public class JFReserva extends javax.swing.JFrame {
     private javax.swing.JLabel JLLugares1;
     private javax.swing.JLabel JLLugares2;
     private javax.swing.JTextField JTFClienteReser;
-    private javax.swing.JTextField JTFClienteReser1;
     private javax.swing.JTextField JTFHoraRes;
     private javax.swing.JTextField JTFLugares;
     private javax.swing.JTextField JTFNumMesa;
+    private javax.swing.JTextField JTFnumReserva;
     private javax.swing.JTable JTReservas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

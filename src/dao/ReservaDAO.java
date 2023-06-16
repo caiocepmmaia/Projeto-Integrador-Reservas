@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Reserva;
+import servicos.ClienteServicos;
+import servicos.ServicosFactory;
 
 /**
  *
@@ -26,7 +28,8 @@ public class ReservaDAO {
             pst.setString(1, rVO.getNumReserva());
             pst.setString(2, rVO.getHoraRes());
             pst.setString(3, rVO.getQntAssento());
-            pst.setString(4, rVO.getResCliente());
+            ClienteServicos servicoS = ServicosFactory.getClienteServicos();
+            pst.setString(4, rVO.getResCliente().getCpf());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar reserva.\n"
@@ -46,7 +49,8 @@ public class ReservaDAO {
                 r.setNumReserva(rs.getString("Numera da Reserva"));
                 r.setHoraRes(rs.getString("HoraRes"));
                 r.setQntAssento(rs.getString("QntAssento"));
-                r.setResCliente(rs.getString("ResCliente"));
+                ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+                r.setResCliente(clienteS.getClienteByDoc(rs.getString("cpf")));
                 reserva.add(r);
             }
         } catch (SQLException e) {
@@ -68,7 +72,8 @@ public class ReservaDAO {
                 r.setNumReserva(rs.getString("Numero da Reserva"));
                 r.setHoraRes(rs.getString("HoraRes"));
                 r.setQntAssento(rs.getString("QntAssento"));
-                r.setResCliente(rs.getString("ResCliente"));
+                ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+                r.setResCliente(clienteS.getClienteByDoc(rs.getString("ResCliente")));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar reserva,\n"
@@ -86,7 +91,8 @@ public class ReservaDAO {
             pst.setString(1, rVO.getNumReserva());
             pst.setString(2, rVO.getHoraRes());
             pst.setString(3, rVO.getQntAssento());
-            pst.setString(4, rVO.getResCliente());
+            ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+            pst.setString(4,clienteS.getClienteByDoc(rVO.getResCliente().getCpf()).getNome());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar a reserva.\n"
