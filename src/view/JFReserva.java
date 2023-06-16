@@ -13,7 +13,7 @@ import servicos.ClienteServicos;
 import servicos.MesaServicos;
 import servicos.ReservaServicos;
 import servicos.ServicosFactory;
-
+import util.Validadores;
 
 /**
  *
@@ -28,14 +28,14 @@ public class JFReserva extends javax.swing.JFrame {
         initComponents();
         addRowToTable();
     }
-    
+
     public void addRowToTable() {
         DefaultTableModel model = (DefaultTableModel) JTReservas.getModel();
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
         Object rowData[] = new Object[4];
         ReservaServicos reservaS = ServicosFactory.getReservaServicos();
-        for (Reserva reserva : reservaS.getReserva()){
+        for (Reserva reserva : reservaS.getReserva()) {
             rowData[0] = reserva.getNumReserva();
             rowData[1] = reserva.getQntAssento();
             rowData[2] = reserva.getHoraRes();
@@ -43,28 +43,27 @@ public class JFReserva extends javax.swing.JFrame {
             model.addRow(rowData);
         }
     }
+
     public boolean validaInputs() {
-        if(JTFNumMesa.getText().equals("")){
+        if (JTFNumMesa.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Campo obrigatátorio");
             JTFNumMesa.requestFocus();
             return false;
-        }else if (JTFLugares.getText().equals("")) {
+        } else if (JTFLugares.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Campo obrigatório");
             JTFLugares.requestFocus();
             return false;
-        }else if (JTFHoraRes.getText().equals("")){
+        } else if (JTFHoraRes.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Campo obrigatorio");
             JTFHoraRes.requestFocus();
             return false;
-        }else if(JTFnumReserva.getText().equals("")){
+        } else if (JTFnumReserva.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Campo Obriagatório");
             JTFnumReserva.requestFocus();
             return false;
         }
         return true;
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -148,6 +147,11 @@ public class JFReserva extends javax.swing.JFrame {
 
         JLCliente.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         JLCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 255)));
+        JLCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                JLClienteFocusLost(evt);
+            }
+        });
 
         JTFnumReserva.setBackground(new java.awt.Color(255, 255, 51));
         JTFnumReserva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -379,7 +383,7 @@ public class JFReserva extends javax.swing.JFrame {
 
     private void JBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSalvarActionPerformed
         // TODO add your handling code here:
-        if (validaInputs()){
+        if (validaInputs()) {
             ReservaServicos reservaS = ServicosFactory.getReservaServicos();
             ClienteServicos clienteS = ServicosFactory.getClienteServicos();
             MesaServicos mesaS = ServicosFactory.getMesaServicos();
@@ -388,16 +392,16 @@ public class JFReserva extends javax.swing.JFrame {
             String horaRes = JTFHoraRes.getText();
             Cliente ResCliente = clienteS.getClienteByDoc(JTFClienteReser.getText());
             Mesa numMesa = mesaS.getMesaByDoc(JTFNumMesa.getText());
-            
-            Reserva r = new Reserva(numReserva,qntAssento,horaRes,ResCliente,numMesa);
+
+            Reserva r = new Reserva(numReserva, qntAssento, horaRes, ResCliente, numMesa);
             System.out.println(r.toString());
-            if (JBSalvar.getText().equals("Salvar")){
+            if (JBSalvar.getText().equals("Salvar")) {
                 reservaS.cadastroReservas(r);
-            }else {
+            } else {
                 reservaS.atualizarReservas(r);
             }
             addRowToTable();
-           // limparCampos();
+            // limparCampos();
         }
     }//GEN-LAST:event_JBSalvarActionPerformed
 
@@ -419,7 +423,7 @@ public class JFReserva extends javax.swing.JFrame {
             reservaS.deletarReservas(numReserva);
             addRowToTable();
             JOptionPane.showMessageDialog(this, "Reserva Cancelada/Finalizada");
-        }else {
+        } else {
             JOptionPane.showMessageDialog(this, "Cancelado");
         }
         JBLimpar.doClick();
@@ -427,9 +431,9 @@ public class JFReserva extends javax.swing.JFrame {
 
     private void JBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBLimparActionPerformed
         // TODO add your handling code here:
-        if (JBLimpar.getText().equals("Limpar")){
+        if (JBLimpar.getText().equals("Limpar")) {
             limparCampos();
-        }else {
+        } else {
             JBLimpar.setText("Limpar");
             JBSalvar.setText("Salvar");
             limparCampos();
@@ -446,7 +450,7 @@ public class JFReserva extends javax.swing.JFrame {
         JBDeletar.setVisible(false);
         JBSalvar.setText("Confirmar");
         JBLimpar.setText("Cancelar");
-        
+
         int linha = JTReservas.getSelectedRow();
         String numReserva = (String) JTReservas.getValueAt(linha, 0);
         ReservaServicos reservaS = ServicosFactory.getReservaServicos();
@@ -458,6 +462,37 @@ public class JFReserva extends javax.swing.JFrame {
         JTFNumMesa.setText(r.getNumMesa().getnumMesa());
     }//GEN-LAST:event_JBEditarActionPerformed
 
+    private void JLClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JLClienteFocusLost
+        // TODO add your handling code here:
+        if (!JTFClienteReser.getText().equals("")) {
+            ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+            String cpf, nome;
+            cpf = JTFClienteReser.getText();
+            if (Validadores.isCPF(cpf)) {
+                nome = clienteS.getClienteByDoc(cpf).getNome();
+                if (nome == null) {
+                    JOptionPane.showMessageDialog(this, "Cliente não cadastrado");
+                    JTFClienteReser.requestFocus();
+                } else {
+                    Object[] btnMSG = {"Sim", "Não"};
+                    int resp = JOptionPane.showOptionDialog(this,
+                            "Este é o proprietário?\n" + nome, ".: Proprietário :.",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                            null, btnMSG, btnMSG[0]);
+                    if (resp == 0) {
+                        JTFClienteReser.setText(nome);
+                    } else {
+                        JTFClienteReser.requestFocus();;
+                        JTFClienteReser.setText("");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "CPF Inválido");
+                JTFClienteReser.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_JLClienteFocusLost
+
     public void limparCampos() {
         JTFnumReserva.setText("");
         JTFClienteReser.setText("");
@@ -465,6 +500,7 @@ public class JFReserva extends javax.swing.JFrame {
         JTFLugares.setText("");
         JTFNumMesa.setText("");
     }
+
     /**
      * @param args the command line arguments
      */

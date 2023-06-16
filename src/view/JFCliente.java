@@ -29,8 +29,8 @@ public class JFCliente extends javax.swing.JFrame {
     public void addRowToTable() {
         DefaultTableModel model = (DefaultTableModel) JTClientes.getModel();
         model.getDataVector().removeAllElements();
-        model.fireTableDataChanged();;
-        Object rowData[] = new Object[4];
+        model.fireTableDataChanged();
+        Object rowData[] = new Object[5];
         ClienteServicos clienteS = ServicosFactory.getClienteServicos();
         for (Cliente cliente : clienteS.getClientes()) {
             rowData[0] = cliente.getCpf();
@@ -137,6 +137,11 @@ public class JFCliente extends javax.swing.JFrame {
 
         JTFCPF.setBackground(new java.awt.Color(255, 204, 204));
         JTFCPF.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        JTFCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                JTFCPFFocusLost(evt);
+            }
+        });
         JTFCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JTFCPFActionPerformed(evt);
@@ -355,6 +360,7 @@ public class JFCliente extends javax.swing.JFrame {
     private void JBSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBSalvarActionPerformed
         // TODO add your handling code here:
         if (validaInputs()) {
+
             String cpf = JTFCPF.getText();
             String nome = JTFNome.getText();
             String telefone = JTFTelefone.getText();
@@ -435,6 +441,16 @@ public class JFCliente extends javax.swing.JFrame {
     private void JTFCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JTFCPFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JTFCPFActionPerformed
+
+    private void JTFCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTFCPFFocusLost
+        // TODO add your handling code here:
+        ClienteServicos clienteS = ServicosFactory.getClienteServicos();
+        if(clienteS.getClienteByDoc(JTFCPF.getText()).getCpf() != null){
+            JOptionPane.showMessageDialog(this, "CPF já cadastrado!");
+            JTFCPF.setText("");
+            JTFCPF.requestFocus();
+        }
+    }//GEN-LAST:event_JTFCPFFocusLost
 
     /**
      * @param args the command line arguments

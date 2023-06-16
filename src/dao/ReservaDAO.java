@@ -23,7 +23,7 @@ public class ReservaDAO {
     public void cadastrarReservaDAO(Reserva rVO) {
         try {
             Connection con = Conexao.getConexao();
-            String sql = "insert into reservas values (null, ?, ?, ?,?)";
+            String sql = "insert into reservas values ( ?, ?, ?,?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, rVO.getNumReserva());
             pst.setString(2, rVO.getHoraRes());
