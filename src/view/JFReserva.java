@@ -482,7 +482,7 @@ public class JFReserva extends javax.swing.JFrame {
                     if (resp == 0) {
                         JTFClienteReser.setText(nome);
                     } else {
-                        JTFClienteReser.requestFocus();;
+                        JTFClienteReser.requestFocus();
                         JTFClienteReser.setText("");
                     }
                 }

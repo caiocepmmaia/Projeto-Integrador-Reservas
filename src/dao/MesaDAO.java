@@ -20,7 +20,7 @@ public class MesaDAO {
     public void cadastrarMesaDAO(Mesa mVO){
         try {
            Connection con = Conexao.getConexao();
-           String sql = "insert into mesas values (null,?,?)";
+           String sql = "insert into mesa values (?,?)";
            PreparedStatement pst = con.prepareStatement(sql);
            pst.setString(1, mVO.getnumMesa());
            pst.setString(2, mVO.getLugares());
@@ -30,30 +30,30 @@ public class MesaDAO {
                             + e.getMessage());
         }
     }
-    public ArrayList<Mesa> getMesas(){
-        ArrayList<Mesa> mesas = new ArrayList<>();
+    public ArrayList<Mesa> getMesa(){
+        ArrayList<Mesa> mesa = new ArrayList<>();
         try {
             Connection con = Conexao.getConexao();
-            String sql = "select * from mesas";
+            String sql = "select * from mesa";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
                 Mesa m = new Mesa();
                 m.setnumMesa(rs.getString("numMesa"));
                 m.setLugares(rs.getString("lugares"));
-                mesas.add(m);
+                mesa.add(m);
             }
         } catch (SQLException e) {
-            System.out.println("Erro ao listar mesas\n"
+            System.out.println("Erro ao listar mesa\n"
                         +e.getMessage());
         }
-        return mesas;
+        return mesa;
     }
     public Mesa getMesaByDoc(String numMesa){
         Mesa m = new Mesa();
         try {
             Connection con = Conexao.getConexao();
-            String sql = "select * from mesas where numMesa = ?";
+            String sql = "select * from mesa where numMesa = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, numMesa);
             ResultSet rs = pst.executeQuery();
@@ -70,7 +70,7 @@ public class MesaDAO {
     public void atualizarMesaDAO(Mesa mVO){
         try {
             Connection con = Conexao.getConexao();
-            String sql = "update mesas set lugares = ?"
+            String sql = "update mesa set lugares = ?"
                     + "where numMesa = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, mVO.getnumMesa());
@@ -84,7 +84,7 @@ public class MesaDAO {
     public void deletarMesaDAO(String numMesa){
         try {
             Connection con = Conexao.getConexao();
-            String sql = "delete from mesas where numMesa = ?";
+            String sql = "delete from mesa where numMesa = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, numMesa);
             pst.executeUpdate();

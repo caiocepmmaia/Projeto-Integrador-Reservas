@@ -23,7 +23,7 @@ public class MesaServicos {
     
     public ArrayList<Mesa> getMesa() {
         MesaDAO mDAO = DAOFactory.getMesaDAO();
-        return mDAO.getMesas();
+        return mDAO.getMesa();
     }
 
     public Mesa getMesaByDoc(String numMesa) {
