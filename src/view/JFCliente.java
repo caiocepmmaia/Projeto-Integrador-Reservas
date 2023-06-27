@@ -147,6 +147,11 @@ public class JFCliente extends javax.swing.JFrame {
                 JTFCPFActionPerformed(evt);
             }
         });
+        JTFCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                JTFCPFKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setText("Telefone");
@@ -451,6 +456,16 @@ public class JFCliente extends javax.swing.JFrame {
             JTFCPF.requestFocus();
         }
     }//GEN-LAST:event_JTFCPFFocusLost
+
+    private void JTFCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFCPFKeyTyped
+        // TODO add your handling code here:
+        String num = "0123456789";
+        if (!num.contains(evt.getKeyChar() + "")){
+            evt.consume();
+        }
+        
+        
+    }//GEN-LAST:event_JTFCPFKeyTyped
 
     /**
      * @param args the command line arguments
