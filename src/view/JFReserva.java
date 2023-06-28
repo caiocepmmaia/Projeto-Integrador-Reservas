@@ -33,13 +33,14 @@ public class JFReserva extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) JTReservas.getModel();
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
-        Object rowData[] = new Object[4];
+        Object rowData[] = new Object[5];
         ReservaServicos reservaS = ServicosFactory.getReservaServicos();
         for (Reserva reserva : reservaS.getReserva()) {
             rowData[0] = reserva.getNumReserva();
             rowData[1] = reserva.getQntAssento();
             rowData[2] = reserva.getHoraRes();
             rowData[3] = reserva.getResCliente().getNome();
+            rowData[4] = reserva.getNumMesa().getNumMesa();
             model.addRow(rowData);
         }
     }
@@ -84,7 +85,6 @@ public class JFReserva extends javax.swing.JFrame {
         JLHorario = new javax.swing.JLabel();
         JTFHoraRes = new javax.swing.JTextField();
         JLClienteReserv = new javax.swing.JLabel();
-        JLCliente = new javax.swing.JLabel();
         JTFnumReserva = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTReservas = new javax.swing.JTable();
@@ -145,14 +145,6 @@ public class JFReserva extends javax.swing.JFrame {
         JLClienteReserv.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         JLClienteReserv.setText("CPF do Cliente");
 
-        JLCliente.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        JLCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 255)));
-        JLCliente.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                JLClienteFocusLost(evt);
-            }
-        });
-
         JTFnumReserva.setBackground(new java.awt.Color(255, 255, 51));
         JTFnumReserva.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         JTFnumReserva.addActionListener(new java.awt.event.ActionListener() {
@@ -163,18 +155,18 @@ public class JFReserva extends javax.swing.JFrame {
 
         JTReservas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "CPF", "Lugares", "Horário", "Mesa"
+                "CPF", "Lugares", "Horário", "Mesa", "Reserva"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -203,9 +195,19 @@ public class JFReserva extends javax.swing.JFrame {
 
         JTFClienteReser.setBackground(new java.awt.Color(255, 255, 51));
         JTFClienteReser.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        JTFClienteReser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                JTFClienteReserFocusLost(evt);
+            }
+        });
         JTFClienteReser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JTFClienteReserActionPerformed(evt);
+            }
+        });
+        JTFClienteReser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                JTFClienteReserKeyTyped(evt);
             }
         });
 
@@ -252,8 +254,6 @@ public class JFReserva extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(JTFClienteReser, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
-                .addGap(40, 40, 40)
-                .addComponent(JLCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
@@ -305,7 +305,6 @@ public class JFReserva extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(JLClienteReserv)
-                    .addComponent(JLCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JTFClienteReser, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -392,6 +391,7 @@ public class JFReserva extends javax.swing.JFrame {
             String horaRes = JTFHoraRes.getText();
             Cliente ResCliente = clienteS.getClienteByDoc(JTFClienteReser.getText());
             Mesa numMesa = mesaS.getMesaByDoc(JTFNumMesa.getText());
+            
 
             Reserva r = new Reserva(numReserva, qntAssento, horaRes, ResCliente, numMesa);
             System.out.println(r.toString());
@@ -401,7 +401,7 @@ public class JFReserva extends javax.swing.JFrame {
                 reservaS.atualizarReservas(r);
             }
             addRowToTable();
-            // limparCampos();
+            limparCampos();
         }
     }//GEN-LAST:event_JBSalvarActionPerformed
 
@@ -462,7 +462,15 @@ public class JFReserva extends javax.swing.JFrame {
         JTFNumMesa.setText(r.getNumMesa().getnumMesa());
     }//GEN-LAST:event_JBEditarActionPerformed
 
-    private void JLClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JLClienteFocusLost
+    private void JTFClienteReserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFClienteReserKeyTyped
+        // TODO add your handling code here:
+        String num = "0123456789";
+        if (!num.contains(evt.getKeyChar() + "")){
+            evt.consume();
+        }
+    }//GEN-LAST:event_JTFClienteReserKeyTyped
+
+    private void JTFClienteReserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JTFClienteReserFocusLost
         // TODO add your handling code here:
         if (!JTFClienteReser.getText().equals("")) {
             ClienteServicos clienteS = ServicosFactory.getClienteServicos();
@@ -476,7 +484,7 @@ public class JFReserva extends javax.swing.JFrame {
                 } else {
                     Object[] btnMSG = {"Sim", "Não"};
                     int resp = JOptionPane.showOptionDialog(this,
-                            "Este é o proprietário?\n" + nome, ".: Proprietário :.",
+                            "Este é o cliente?\n" + nome, " - Cliente - ",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
                             null, btnMSG, btnMSG[0]);
                     if (resp == 0) {
@@ -491,7 +499,7 @@ public class JFReserva extends javax.swing.JFrame {
                 JTFClienteReser.requestFocus();
             }
         }
-    }//GEN-LAST:event_JLClienteFocusLost
+    }//GEN-LAST:event_JTFClienteReserFocusLost
 
     public void limparCampos() {
         JTFnumReserva.setText("");
@@ -542,7 +550,6 @@ public class JFReserva extends javax.swing.JFrame {
     private javax.swing.JButton JBFechar;
     private javax.swing.JButton JBLimpar;
     private javax.swing.JButton JBSalvar;
-    private javax.swing.JLabel JLCliente;
     private javax.swing.JLabel JLClienteReserv;
     private javax.swing.JLabel JLHorario;
     private javax.swing.JLabel JLLugares;

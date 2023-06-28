@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Reserva;
 import servicos.ClienteServicos;
+import servicos.MesaServicos;
 import servicos.ServicosFactory;
 
 /**
@@ -23,13 +24,13 @@ public class ReservaDAO {
     public void cadastrarReservaDAO(Reserva rVO) {
         try {
             Connection con = Conexao.getConexao();
-            String sql = "insert into reservas values ( ?, ?, ?,?)";
+            String sql = "insert into reservas values (null, ?, ?, ?,?,?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, rVO.getNumReserva());
             pst.setString(2, rVO.getHoraRes());
             pst.setString(3, rVO.getQntAssento());
-            ClienteServicos servicoS = ServicosFactory.getClienteServicos();
             pst.setString(4, rVO.getResCliente().getCpf());
+            pst.setString(5, rVO.getNumMesa().getNumMesa());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar reserva.\n"
@@ -51,6 +52,8 @@ public class ReservaDAO {
                 r.setQntAssento(rs.getString("QntAssento"));
                 ClienteServicos clienteS = ServicosFactory.getClienteServicos();
                 r.setResCliente(clienteS.getClienteByDoc(rs.getString("cpf")));
+                MesaServicos mesaS = ServicosFactory.getMesaServicos();
+                r.setNumMesa(mesaS.getMesaByDoc(rs.getString("numMesa")));
                 reserva.add(r);
             }
         } catch (SQLException e) {
@@ -64,7 +67,7 @@ public class ReservaDAO {
         Reserva r = new Reserva();
         try {
             Connection con = Conexao.getConexao();
-            String sql = "select * from reservas where idReserva = ?";
+            String sql = "select * from reservas where numReserva = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, numReserva);
             ResultSet rs = pst.executeQuery();
@@ -74,6 +77,8 @@ public class ReservaDAO {
                 r.setQntAssento(rs.getString("QntAssento"));
                 ClienteServicos clienteS = ServicosFactory.getClienteServicos();
                 r.setResCliente(clienteS.getClienteByDoc(rs.getString("ResCliente")));
+                MesaServicos mesaS = ServicosFactory.getMesaServicos();
+                r.setNumMesa(mesaS.getMesaByDoc(rs.getString("numMesa")));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar reserva,\n"
@@ -85,14 +90,16 @@ public class ReservaDAO {
     public void atualizarReservasDAO(Reserva rVO) {
         try {
             Connection con = Conexao.getConexao();
-            String sql = "update reservas set HoraRes = ?, QntAssento = ?, ResCliente = ?"
-                    + "where idReserva = ?";
+            String sql = "update reservas set HoraRes = ?, QntAssento = ?, ResCliente = ?, NumMesa = ?"
+                    + "where numReserva = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, rVO.getNumReserva());
-            pst.setString(2, rVO.getHoraRes());
-            pst.setString(3, rVO.getQntAssento());
+            pst.setString(5, rVO.getNumReserva());
+            pst.setString(1, rVO.getHoraRes());
+            pst.setString(2, rVO.getQntAssento());
             ClienteServicos clienteS = ServicosFactory.getClienteServicos();
-            pst.setString(4,clienteS.getClienteByDoc(rVO.getResCliente().getCpf()).getNome());
+            pst.setString(3,clienteS.getClienteByDoc(rVO.getResCliente().getCpf()).getNome());
+            MesaServicos mesaS = ServicosFactory.getMesaServicos();
+            pst.setString(4, mesaS.getMesaByDoc(rVO.getNumMesa().getnumMesa()).getnumMesa());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar a reserva.\n"
@@ -103,7 +110,7 @@ public class ReservaDAO {
     public void deletarReservasDAO(String numReserva) {
         try {
             Connection con = Conexao.getConexao();
-            String sql = "delete from reservas where idReserva = ?";
+            String sql = "delete from reservas where numReserva = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, numReserva);
         } catch (SQLException e) {

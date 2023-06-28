@@ -62,7 +62,7 @@ public class ClienteDAO {
         Cliente c = new Cliente();
         try {
             Connection con = Conexao.getConexao();
-            String sql = "select * from clientes wherw cpf = ?";
+            String sql = "select * from clientes where cpf = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, cpf);
             ResultSet rs = pst.executeQuery();
@@ -85,10 +85,10 @@ public class ClienteDAO {
             String sql = "update clientes set nome = ?, endereco = ?, telefone = ?"
                     + "where cpf = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, cVO.getCpf());
-            pst.setString(2, cVO.getNome());
-            pst.setString(3, cVO.getTelefone());
-            pst.setString(4, cVO.getEndereco());
+            pst.setString(4, cVO.getCpf());
+            pst.setString(1, cVO.getNome());
+            pst.setString(2, cVO.getTelefone());
+            pst.setString(3, cVO.getEndereco());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar Cliente.\n"

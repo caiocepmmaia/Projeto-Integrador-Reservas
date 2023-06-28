@@ -427,6 +427,7 @@ public class JFCliente extends javax.swing.JFrame {
         JBDeletar.setVisible(false);
         JBSalvar.setText("Confirmar");
         JBLimpar.setText("Cancelar");
+        
 
         int linha = JTClientes.getSelectedRow();
         String cpf = (String) JTClientes.getValueAt(linha, 0);

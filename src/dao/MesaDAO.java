@@ -59,7 +59,6 @@ public class MesaDAO {
             ResultSet rs = pst.executeQuery();
             while(rs.next()){
                 m.setLugares(rs.getString("lugares"));
-                m.setnumMesa(rs.getString("numMesa"));
             }
         } catch (SQLException e) {
             System.out.println("Erro ao buscar numero Mesa.\n"
@@ -73,8 +72,8 @@ public class MesaDAO {
             String sql = "update mesa set lugares = ?"
                     + "where numMesa = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, mVO.getnumMesa());
-            pst.setString(2, mVO.getLugares());
+            pst.setString(2, mVO.getnumMesa());
+            pst.setString(1, mVO.getLugares());
             pst.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Erro ao atualizar Mesa.\n"
